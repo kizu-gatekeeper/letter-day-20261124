@@ -14,12 +14,22 @@ import os
 import sys
 
 
-def main() -> int:
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+def write_entry(out_dir: str) -> str:
+    """Write the entry letter to ``entry.txt`` in ``out_dir``.
+
+    The entry is the single letter ``Z`` and nothing else: no word,
+    no gloss, no punctuation. Returns the path written.
+    """
     os.makedirs(out_dir, exist_ok=True)
     entry_path = os.path.join(out_dir, "entry.txt")
     with open(entry_path, "w", encoding="utf-8", newline="") as f:
         f.write("Z")
+    return entry_path
+
+
+def main() -> int:
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    write_entry(out_dir)
     return 0
 
 
